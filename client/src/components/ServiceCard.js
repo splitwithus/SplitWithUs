@@ -10,7 +10,7 @@ const style = {
 };
 
 const ServiceCard = (props) => (
-  <Paper style={style} zDepth={2}>
+  <Paper style={style} zDepth={1}>
     {props.service}
   </Paper>
 );

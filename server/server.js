@@ -91,7 +91,6 @@ app.get('/home', (req, res) => {
   res.send('hello home');
 });
 
-<<<<<<< HEAD
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + './../index.html'));
 });
@@ -100,10 +99,6 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname + './../index.html'));
 });
 
-=======
-
-//************************
->>>>>>> 816a667fe1f52175c23f4cc402d00f2cc50cc31c
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
