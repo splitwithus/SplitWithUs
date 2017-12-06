@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const GithubStrategy = require('passport-github').Strategy;
+const session = require('express-session');
 
 
 const port = 8080;
@@ -21,6 +22,9 @@ app.use(function (req, res, next) {
     res.sendFile(path.join(__dirname + '/..' + req.url));
   } else next();
 });
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 /***************************
  * Body and cookie parsing middleware
