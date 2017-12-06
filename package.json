@@ -1,7 +1,7 @@
 {
-  "name": "raddit",
+  "name": "SplitWithUs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Social plaform for users to gather and discuss their favorite services",
   "main": "index.js",
   "scripts": {
     "dev-server": "nodemon server/server.js",
