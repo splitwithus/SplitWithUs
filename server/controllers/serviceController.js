@@ -19,5 +19,4 @@ const serviceController = {
 
 };
 
-
 module.exports = serviceController;
