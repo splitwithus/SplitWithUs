@@ -38,7 +38,3 @@ class NavBar extends React.Component {
 };
 
 export default NavBar;
-
-/*
-      iconElementLeft={<IconButton><NavigationClose /></IconButton>}
-      iconStyleLeft={{ 'marginTop': '15px'}}
