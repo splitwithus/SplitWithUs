@@ -5,17 +5,16 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-//middleware
+// middleware
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const GithubStrategy = require('passport-github').Strategy;
 const session = require('express-session');
 
-
 const port = 8080;
 /***************************
- * Static files middleware 
+ * Static files middleware
  ***************************/
 app.use(function (req, res, next) {
   if (req.url.match(/.js$|.html$|.css$|.png$|.woff|.woff2|.tff$/)) {
@@ -42,9 +41,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    expires: 600000,
+    expires: 600000
   }
-}))
+}));
 /*
  * Middleware will check if user's cookie is still saved in browser and if user is not set, then automatically log the user out.
  */
@@ -53,28 +52,28 @@ app.use((req, res, next) => {
     res.clearCookie('user_sid');
   }
   next();
-})
+});
 
 /*
  * Middleware to check if user is in an active session
  */
 const sessionChecker = (req, res, next) => {
   if (req.session.user && req.cookies.user_sid) {
-    res.redirect('/servicespage');  //figure out which route to redirect to
+    res.redirect('/servicespage');  // figure out which route to redirect to
   } else {
     next();
   }
-}
+};
 
 /***************************
  OAuth
  ***************************/
 passport.use(new GithubStrategy({
-  clientID: "95a121558b40b1023f42",
-  clientSecret: "ca15e822b7c2211955486ea211a0567885f71a30",
-  callbackURL: "http://localhost:8080/auth/github/callback"
+  clientID: '95a121558b40b1023f42',
+  clientSecret: 'ca15e822b7c2211955486ea211a0567885f71a30',
+  callbackURL: 'http://localhost:8080/auth/github/callback'
 },
-function(accessToken, refreshToken, profile, done) {
+function (accessToken, refreshToken, profile, done) {
   return done(null, profile);
 }
 ));
@@ -123,7 +122,6 @@ app.get('/services', serviceController.allServices);
 app.get('/login', userController.login);
 app.get('/logout', userController.logout);
 
-
 // Forgot Password
 app.get('/forgotpw', userController.forgotpw);
 
@@ -145,7 +143,6 @@ app.get('/home', (req, res) => {
   res.send('hello home');
 });
 
-<<<<<<< HEAD
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + './../index.html'));
 });
@@ -154,15 +151,8 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname + './../index.html'));
 });
 
-=======
-
-//************************
->>>>>>> 816a667fe1f52175c23f4cc402d00f2cc50cc31c
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
-
-
-
 
 module.exports = app;
