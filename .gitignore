@@ -57,4 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
-client/build/
+
+# gulp build
+client/build
+
