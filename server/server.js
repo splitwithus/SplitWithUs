@@ -145,8 +145,14 @@ app.get('/home', (req, res) => {
   res.send('hello home');
 });
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + './../index.html'));
+});
 
-//************************
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname + './../index.html'));
+});
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
