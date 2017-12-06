@@ -3,7 +3,7 @@ const pgp = require('pg-promise')();
 // import { user, pw } from '.env';
 
 //db connection details
-const cn = 'postgres://jagtbsfl:_RHivRq2crKo9iQAFDfPlyEHo8uvDv-m@horton.elephantsql.com:5432/jagtbsfl';
+const cn = 'postgres://hjpjnifc:5kFWGFGkFyUN33Taxih_5soV1CM0mD0M@baasu.db.elephantsql.com:5432/hjpjnifc';
 
 const db = pgp(cn);
 

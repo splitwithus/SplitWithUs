@@ -35,38 +35,55 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + './../index.html'));
 });
 
+/**
+ * Database Setup
+ */
 const db = require('./db/dbConfig');
-// import database controllers
-// import {addUser} from './controllers/event-controllers';
 
-// database connection
-db.connect()
-  .then(obj => {
-    console.log('connected to db');
-    // db.query('SELECT * FROM "Users"')
-    // .then((resp) => console.log(resp))
-    // db.query('SELECT * FROM "Services"')
-    // .then((resp) => console.log(resp))
-  })
-  .catch(error => console.log('error connecting'));
+// Database Controllers
+const userController = require('./controllers/userController');
+const groupController = require('./controllers/groupController');
+const serviceController = require('./controllers/serviceController');
 
-// server routes
+/**
+ *Database Connection
+ */
+// db.connect()
+//   .then(obj => {
+//     console.log('connected to db');
+//     // db.query('SELECT * FROM "Users"')
+//     // .then((resp) => console.log(resp))
+//     // db.query('SELECT * FROM "Services"')
+//     // .then((resp) => console.log(resp))
+//   })
+//   .catch(error => console.log('error connecting'));
 
-// Create New Routes
-app.post('/createuser', (req, res) => {
-  console.log('hello create user');
-  res.send('hello add user');
-});
+// Server Routes
+
+// All Users
+app.get('/users', userController.allUsers);
+
+// All Services
+app.get('/services', serviceController.allServices);
+
+// Login Route
+app.get('/login', userController.login);
+
+// Forgot Password
+app.get('/forgotpw', userController.forgotpw);
+
+// Create User
+app.post('/createuser', userController.addUser);
+
 // Join a Group
-app.post('/joingroup', (req, res) => {
-  console.log('hello join group');
-  res.send('hello join group');
-});
+app.post('/joingroup', groupController.joinGroup);
+
 // Leave a Group
 app.post('/leavegroup', (req, res) => {
   console.log('hello leave group');
   res.send('hello leave group');
 });
+
 // Home
 app.get('/home', (req, res) => {
   console.log('hello home');
