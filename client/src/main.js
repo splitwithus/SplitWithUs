@@ -5,7 +5,7 @@ import NavBar from './NavBar/NavBar';
 import AutoCompleteExampleSimple from './NavBar/Search';
 import DrawerOpenRightExample from './NavBar/Drawer';
 import Paper from './NavBar/Paper';
-import ServicesContainer from './containers/ServicesContainer';
+import HomeContainer from './containers/HomeContainer';
 
 import {
   BrowserRouter as Router,
@@ -25,8 +25,7 @@ render(
         <AutoCompleteExampleSimple />
         <DrawerOpenRightExample />
         <Paper />
-        <ServicesContainer type={'Video'} services={['Netflix', 'Hulu']} />
-        <ServicesContainer type={'Music'} services={['Spotify', 'Pandora']} />
+        <HomeContainer />
       </div>
     </MuiThemeProvider>
   </Provider>, document.getElementById('content')
