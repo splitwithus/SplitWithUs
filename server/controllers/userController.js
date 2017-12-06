@@ -41,9 +41,15 @@ const userController = {
             });
     },
 
+    //LOGIN/LOGOUT 
     login(req, res) {
         //connect to db
         //verify credentials
+    },
+    logout(req,res) {
+      console.log('logging out');
+      req.logout();
+      res.redirect('/');
     },
 
     forgotpw(req, res) {

@@ -6,38 +6,37 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const passport = require('passport');
 
 const port = 8080;
-
-/**
- * static files middleware
- */
+/***************************
+  static files middleware 
+ ***************************/
 app.use(function (req, res, next) {
   if (req.url.match(/.js$|.html$|.css$|.png$|.woff|.woff2|.tff$/)) {
     res.sendFile(path.join(__dirname + '/..' + req.url));
   }  else next();
 });
 
-/**
- * body and cookie parsing middleware
- */
+/***************************
+ body and cookie parsing middleware
+ ***************************/
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
 app.use(cookieParser());
 
-/**
+/***************************
  * ROUTING
- */
+ ***************************/
 
 // Static HTML routing
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + './../index.html'));
 });
 
-/**
+/***************************
  * Database Setup
- */
+ ***************************/
 const db = require('./db/dbConfig');
 
 // Database Controllers
@@ -45,9 +44,9 @@ const userController = require('./controllers/userController');
 const groupController = require('./controllers/groupController');
 const serviceController = require('./controllers/serviceController');
 
-/**
+/***************************
  *Database Connection
- */
+ ***************************/
 // db.connect()
 //   .then(obj => {
 //     console.log('connected to db');
@@ -58,16 +57,18 @@ const serviceController = require('./controllers/serviceController');
 //   })
 //   .catch(error => console.log('error connecting'));
 
-// Server Routes
-
+/***************************
+Server Routes
+ ***************************/
 // All Users
 app.get('/users', userController.allUsers);
 
 // All Services
 app.get('/services', serviceController.allServices);
 
-// Login Route
+// Login/Logout Routes
 app.get('/login', userController.login);
+app.get('/logout', userController.logout);
 
 // Forgot Password
 app.get('/forgotpw', userController.forgotpw);
@@ -90,6 +91,8 @@ app.get('/home', (req, res) => {
   res.send('hello home');
 });
 
+
+//************************
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
