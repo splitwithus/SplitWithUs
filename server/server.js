@@ -6,6 +6,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 const port = 8080;
 
@@ -15,23 +16,56 @@ const port = 8080;
 app.use(function (req, res, next) {
   if (req.url.match(/.js$|.html$|.css$|.png$|.woff|.woff2|.tff$/)) {
     res.sendFile(path.join(__dirname + '/..' + req.url));
-  }  else next();
+  } else next();
 });
 
 /**
  * body and cookie parsing middleware
  */
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 app.use(cookieParser());
+
+/**
+ * Initialize Express Sessions
+ */
+app.use(session({
+  key: 'user_sid',
+  secret: 'nyancatmeow',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: 600000,
+  }
+}))
+
+/**
+ * Middleware will check if user's cookie is still saved in browser and if user is not set, then automatically log the user out.
+ */
+app.use((req, res, next) => {
+  if (req.cookies.user_sid && !req.session.user) {
+    res.clearCookie('user_sid');
+  }
+  next();
+})
+
+/**
+ * Middleware to check if user is in an active session
+ */
+const sessionChecker = (req, res, next) => {
+  if (req.session.user && req.cookies.user_sid) {
+    res.redirect('/servicespage');  //figure out which route to redirect to
+  } else {
+    next();
+  }
+}
 
 /**
  * ROUTING
  */
 
 // Static HTML routing
-app.get('/', (req, res) => {
+app.get('/', sessionChecker, (req, res) => { //added session checker
   res.sendFile(path.join(__dirname + './../index.html'));
 });
 
@@ -79,10 +113,7 @@ app.post('/createuser', userController.addUser);
 app.post('/joingroup', groupController.joinGroup);
 
 // Leave a Group
-app.post('/leavegroup', (req, res) => {
-  console.log('hello leave group');
-  res.send('hello leave group');
-});
+app.post('/leavegroup', groupController.leaveGroup);
 
 // Home
 app.get('/home', (req, res) => {

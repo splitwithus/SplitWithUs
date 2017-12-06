@@ -41,16 +41,32 @@ const userController = {
             });
     },
 
+    //LOGIN
     login(req, res) {
-        //connect to db
+        const user = req.body.username;
+        const pw = req.body.password;
+        //connect to data base
+        db.connect()
+            .then(obj => {
+                db.query(`SELECT EXISTS (SELECT * FROM login_details WHERE username = ${user} AND password = ${pw})`);
+                //
+            })
         //verify credentials
     },
 
-    forgotpw(req, res) {
+    //FORGOT PASSWORD
+    forgotPw(req, res) {
+        //enter username and email 
         //connect to db
-        //verify credentials
-    }
+        //db checks if username and email exists
+        //message if your account exists an email will be sent
+    },
 
+    //FORGOT PASSWORD
+    updatePw(req, res) {
+        //user clicks link in email
+        //update password query
+    }
 };
 
 
