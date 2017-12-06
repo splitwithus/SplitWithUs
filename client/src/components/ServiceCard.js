@@ -9,9 +9,15 @@ const style = {
   display: 'inline-block'
 };
 
+const imgStyle = {
+  width: '150px',
+  height: '150px'
+};
+
 const ServiceCard = (props) => (
   <Paper style={style} zDepth={2}>
-    {props.service}
+    <img style={imgStyle} src={`http://localhost:8080/client/assets/images/${props.service.toLowerCase()}.png`} />
+    <h4>{props.service}</h4>
   </Paper>
 );
 
