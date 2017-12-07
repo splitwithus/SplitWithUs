@@ -15,11 +15,15 @@ import {
  */
 
 class App extends React.Component {
-  render () {
+  render() {
     return (
       <Router>
         <div>
           <NavBar />
+          <ul>\
+            <li><a href='/auth/github'>GitHub</a></li>\
+            <li><a href='/logout'>logout</a></li>\
+          </ul>
           <Link to='/'>
             Home
           </Link>

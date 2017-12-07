@@ -35,28 +35,53 @@ const userController = {
           })
           .catch((err) => res.status(404).send(err));
       })
-      .catch(error => {
+      .catch(err => {
         console.log('error connecting')
-        res.status(404).send(error);
+        res.status(404).send(err);
       });
   },
 
-  //LOGIN/LOGOUT 
-  login(req, res) {
-    //connect to db
-    //verify credentials
+  //LOGIN
+  login(req, res, next) {
+    const user = req.body.user;
+    const pw = req.body.pw;
+    //connect to data base
+    db.connect()
+      .then(obj => {
+        db.query(`SELECT EXISTS (SELECT * FROM "Users" WHERE "username" = '${user}' AND "password" = '${pw}')`)
+          .then((resp) => {
+            console.log(resp);
+            if (resp){
+              res.send(resp)
+            } else {
+              res.send('error')
+              // res.redirect('/login');
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(404).send(err);
+          });
+      })
+      .catch(err => res.status(404).send(err))
   },
+
   logout(req, res) {
-    console.log('logging out');
-    req.logout();
-    res.redirect('/');
   },
 
+  //FORGOT PASSWORD
   forgotpw(req, res) {
+    //enter username and email 
     //connect to db
-    //verify credentials
-  }
+    //db checks if username and email exists
+    //message if your account exists an email will be sent
+  },
 
+  //FORGOT PASSWORD
+  updatePw(req, res) {
+    //user clicks link in email
+    //update password query
+  }
 };
 
 
