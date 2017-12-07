@@ -1,7 +1,8 @@
-import { combineReducers } from 'redux'
-import posts from './posts'
-
+import { combineReducers } from 'redux';
+import productServices from './productServices';
 
 export default combineReducers({
-  posts
+  productServices
 });
+
+// export default productServices;
