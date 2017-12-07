@@ -1,7 +1,10 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-// import RaisedButton from 'material-ui/RaisedButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import GitHubButton from './GitHubButton';
+import SignUpButton from './SignUpButton';
+import IconButton from 'material-ui/IconButton';
 
 /**
  * Dialog with action buttons. The actions are passed in as an array of React objects,
@@ -23,29 +26,27 @@ export default class SignUp extends React.Component {
   };
 
   render() {
-    // const actions = [
-    //   <FlatButton
-    //     label="Cancel"
-    //     primary={true}
-    //     onClick={this.handleClose}
-    //   />,
-    //   <FlatButton
-    //     label="Submit"
-    //     primary={true}
-    //     keyboardFocused={true}
-    //     onClick={this.handleClose}
-    //   />,
-    // ];
+    const actions = [
+      <FlatButton
+        label="X"
+        primary={true}
+        onClick={this.handleClose}
+      />
+    ];
 
     return (
       <div>
         <FlatButton label="Sign Up" onClick={this.handleOpen} />
         <Dialog
-        //   actions={actions}
+          title={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
+        <GitHubButton />
+        <SignUpButton />
+        <hr/>
+        <p>Already have an account?<a>Click Here</a></p>
         </Dialog>
       </div>
     );

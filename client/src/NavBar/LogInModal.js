@@ -1,8 +1,10 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-// import RaisedButton from 'material-ui/RaisedButton';
-
+import RaisedButton from 'material-ui/RaisedButton';
+import GitHubButton from './GitHubButton';
+import IconButton from 'material-ui/IconButton';
+import AutoCompleteExampleSimple from './Search';
 /**
  * Dialog with action buttons. The actions are passed in as an array of React objects,
  * in this example [FlatButtons](/#/components/flat-button).
@@ -21,31 +23,28 @@ export default class LogIn extends React.Component {
   handleClose = () => {
     this.setState({open: false});
   };
-
   render() {
-    // const actions = [
-    //   <FlatButton
-    //     label="Cancel"
-    //     primary={true}
-    //     onClick={this.handleClose}
-    //   />,
-    //   <FlatButton
-    //     label="Submit"
-    //     primary={true}
-    //     keyboardFocused={true}
-    //     onClick={this.handleClose}
-    //   />,
-    // ];
+    const actions = [
+      <FlatButton
+        label="X"
+        primary={true}
+        onClick={this.handleClose}
+      />
+    ];
 
     return (
       <div>
         <FlatButton label="Log In" onClick={this.handleOpen} />
         <Dialog
-        //   actions={actions}
+          title={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
+        <GitHubButton />
+        <hr/>
+        <AutoCompleteExampleSimple />
+        <AutoCompleteExampleSimple />
         </Dialog>
       </div>
     );
