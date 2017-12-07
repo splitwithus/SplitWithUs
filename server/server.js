@@ -1,6 +1,6 @@
 'use strict';
 require('dotenv').config();
-
+//server
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -12,10 +12,12 @@ const passport = require('passport');
 const GithubStrategy = require('passport-github').Strategy;
 const session = require('express-session');
 
-
 const port = 8080;
 /***************************
- * Static files middleware 
+ * Middleware
+ - Serve Static files 
+ - Body and cookie parsing middleware
+ - Initialize Express Sessions
  ***************************/
 app.use(function (req, res, next) {
   if (req.url.match(/.js$|.html$|.css$|.png$|.woff|.woff2|.tff$/)) {
@@ -23,19 +25,12 @@ app.use(function (req, res, next) {
   } else next();
 });
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-/***************************
- * Body and cookie parsing middleware
- ***************************/
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-/***************************
- * Initialize Express Sessions
- ***************************/
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(session({
   key: 'user_sid',
   secret: 'nyancatmeow',
@@ -78,6 +73,30 @@ function(accessToken, refreshToken, profile, done) {
   return done(null, profile);
 }
 ));
+
+passport.serializeUser(function(user, done) {
+  // placeholder for custom user serialization
+  // null is for errors
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  // placeholder for custom user deserialization.
+  // maybe you are going to get the user from mongo by id?
+  // null is for errors
+  done(null, user);
+});
+
+// we will call this to start the GitHub Login process
+app.get('/auth/github', passport.authenticate('github'));
+
+// GitHub will call this URL
+app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }),
+function(req, res) {
+  res.redirect('/');
+}
+);
+
 /***************************
  * ROUTING
  ***************************/
