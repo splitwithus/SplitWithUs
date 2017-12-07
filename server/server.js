@@ -102,7 +102,7 @@ function(req, res) {
  ***************************/
 
 // Static HTML routing
-app.get('/', (req, res) => {
+app.get('/', sessionChecker, (req, res) => { //added session checker
   res.sendFile(path.join(__dirname + './../index.html'));
 });
 
@@ -139,7 +139,7 @@ app.get('/users', userController.allUsers);
 app.get('/services', serviceController.allServices);
 
 // Login/Logout Routes
-app.get('/login', userController.login);
+app.post('/login', userController.login, );
 app.get('/logout', userController.logout);
 
 
@@ -153,10 +153,7 @@ app.post('/createuser', userController.addUser);
 app.post('/joingroup', groupController.joinGroup);
 
 // Leave a Group
-app.post('/leavegroup', (req, res) => {
-  console.log('hello leave group');
-  res.send('hello leave group');
-});
+app.post('/leavegroup', groupController.leaveGroup);
 
 // Home
 app.get('/home', (req, res) => {
