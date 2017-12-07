@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import CircularProgress from 'material-ui/CircularProgress';
 import {
   Link,
   Route
@@ -18,7 +19,8 @@ class ServiceContainer extends Component {
       'id': '',
       'max_users': '',
       'image_uri': '',
-      'serviceChoice': this.props.match.params.service
+      'serviceChoice': this.props.match.params.service.toLowerCase(),
+      'error': false
     };
   }
   componentDidMount () {
@@ -27,27 +29,49 @@ class ServiceContainer extends Component {
       return response.json();
     }).then((data) => {
       const serviceData = data.find((service) => this.state.serviceChoice === service.name.toLowerCase());
-      this.setState((prevState, props) => {
-        return serviceData;
-      });
+      if (serviceData !== undefined) {
+        this.setState((prevState, props) => {
+          return serviceData;
+        });
+      } else {
+        this.setState((prevState, props) => {
+          return {error: true};
+        });
+      }
       return data;
     }).catch((err) => {
-      // Error :(
+      console.log('THERE WAS AN ERROR');
+      this.setState((prevState, props) => {
+        return {error: true};
+      });
       return err;
     });
   }
 
   render () {
-    return (
-      <div>
-        <h1>{this.state.name}</h1>
-        <h2>{this.state.description}</h2>
-        <h2>{this.state.cost}</h2>
-        <h2>{this.state.id}</h2>
-        <h2>max users: {this.state.max_users}</h2>
-        <img style={logoStyle} src={`http://localhost:8080/client/assets/images/${this.state.name.toLowerCase()}.png`} />
-      </div>
-    );
+    if (this.state.name !== 'blank') {
+      return (
+        <div>
+          <h1>{this.state.name}</h1>
+          <h2>{this.state.description}</h2>
+          <h2>{this.state.cost}</h2>
+          <h2>{this.state.id}</h2>
+          <h2>max users: {this.state.max_users}</h2>
+          <img style={logoStyle} src={`http://localhost:8080/client/assets/images/${this.state.name.toLowerCase()}.png`} />
+        </div>
+      );
+    } else if (this.state.error) {
+      return (
+        <div>404: This page does not exist</div>
+      );
+    } else {
+      return (
+        <div>
+          <br /><br /><br />
+          <center><CircularProgress size={150} thickness={10} /></center>
+        </div>
+      );
+    }
   }
 }
 

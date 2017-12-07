@@ -20,16 +20,7 @@ class App extends React.Component {
       <Router>
         <div>
           <NavBar />
-          <ul>\
-            <li><a href='/auth/github'>GitHub</a></li>\
-            <li><a href='/logout'>logout</a></li>\
-          </ul>
-          <Link to='/'>
-            Home
-          </Link>
-          <Link to='/service/netflix'>
-            Netflix
-          </Link>
+          <Link to='/'>HOME LINK</Link>
           <Switch>
             <Route exact path='/' component={HomeContainer} />
             <Route exact path='/service' component={ServiceContainer} />
