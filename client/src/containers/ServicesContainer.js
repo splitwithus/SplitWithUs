@@ -12,7 +12,7 @@ const ServicesContainer = (props) => {
   });
   return (
     <div>
-      <h3>{props.type}</h3>
+      <h2>{props.type}</h2>
       <div>
         {ServiceCards}
       </div>
