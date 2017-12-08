@@ -36,6 +36,7 @@ export default class Modal extends React.Component {
 
         return (
             <div>
+                <a href='/logout'><FlatButton label="Log Out" /></a>            
                 <FlatButton label="Sign Up" onClick={this.handleSignUpOpen} />
                 <FlatButton label="Log In" onClick={this.handleLogInOpen} />
                 <Dialog
@@ -43,6 +44,7 @@ export default class Modal extends React.Component {
                     modal={false}
                     open={this.state.value === 1}
                     onRequestClose={this.handleClose}>
+                    <a href='/auth/github'><GitHubButton /></a>                    
                     <br/>
                     <SignUpButton />
                     <hr />
@@ -56,9 +58,8 @@ export default class Modal extends React.Component {
                     onRequestClose={this.handleClose}>
                     <GitHubButton />
                     <br/>
-                    <SignUpButton />
                     <hr />
-                    <p>Already have an account?<a href={this.state.handleSignSwitch}>Click Here</a></p>
+                    <p>Don't have an account?<a href={this.state.handleSignSwitch}>Click Here</a></p>
                     <FlatButton label="Next" onClick={this.handleSignUpOpen} />
                 </Dialog>
             </div>

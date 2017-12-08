@@ -35,7 +35,9 @@ const HomeContainer = (props) => {
   return (
     <div>
       <Header />
+      <center>
       {homeServices}
+      </center>
       <div style={style} />
     </div>
   );

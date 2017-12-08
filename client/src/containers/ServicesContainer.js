@@ -8,7 +8,7 @@ import ServiceCard from './../components/ServiceCard';
 const ServicesContainer = (props) => {
   const ServiceCards = [];
   props.services.forEach((service) => {
-    ServiceCards.push(<ServiceCard key={service} service={service} />);
+    ServiceCards.push(<center><ServiceCard key={service} service={service} /></center>);
   });
   return (
     <div>

@@ -20,7 +20,6 @@ class App extends React.Component {
       <Router>
         <div>
           <NavBar />
-          <Link to='/'>HOME LINK</Link>
           <Switch>
             <Route exact path='/' component={HomeContainer} />
             <Route exact path='/service' component={ServiceContainer} />
