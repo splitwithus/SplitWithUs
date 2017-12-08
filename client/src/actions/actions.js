@@ -1,6 +1,14 @@
 import fetch from 'cross-fetch';
 import * as types from '../constants/actionTypes'
 
+export const test = () => {
+  console.log('TEST DISPATCHED');
+  return {
+    type: 'TEST',
+    payload: 'test payload'
+  }
+}
+
 export const requestPosts = (user_id) => {
   return {
     type: types.REQUEST_POSTS,

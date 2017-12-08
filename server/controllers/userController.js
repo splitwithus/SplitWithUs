@@ -67,6 +67,7 @@ const userController = {
   },
 
   logout(req, res) {
+    res.redirect('/');
   },
 
   //FORGOT PASSWORD
